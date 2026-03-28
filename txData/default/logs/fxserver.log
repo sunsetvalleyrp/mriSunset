@@ -1,0 +1,130 @@
+================================================================
+======== Log Rotated - 27/03/2026 00:00:00                      
+================================================================
+[ citizen-server-impl] Server list query returned an error: server request failed: server request failed for endpoint https://143.14.244.254:30120/players.json (Get "https://143.14.244.254:30120/players.json": read tcp 10.0.16.207:47980->143.14.244.254:30120: read: connection reset by peer)
+[ citizen-server-impl] Server list query returned an error: server request failed: server request failed for endpoint https://143.14.244.254:30120/dynamic.json (Get "https://143.14.244.254:30120/dynamic.json": context deadline exceeded (Client.Timeout exceeded while awaiting headers))
+[ citizen-server-impl] Server list query returned an error: server request failed: server request failed for endpoint https://143.14.244.254:30120/dynamic.json (Get "https://143.14.244.254:30120/dynamic.json": read tcp 10.0.16.207:60248->143.14.244.254:30120: read: connection reset by peer (Client.Timeout exceeded while awaiting headers))
+[ citizen-server-impl] Server list query returned an error: server request failed: server request failed for endpoint https://143.14.244.254:30120/info.json (Get "https://143.14.244.254:30120/info.json": context deadline exceeded (Client.Timeout exceeded while awaiting headers))
+[ citizen-server-impl] sync thread hitch warning: timer interval of 112 milliseconds
+[     script:mri_Qbox] Jogador: alexjaquezjr71, Identificador #1: license:1f53bbc7a86eb425980530bea759a8ff0cbdf42d
+[     script:mri_Qbox] Jogador: alexjaquezjr71, Identificador #2: xbl:2535417926669693
+[     script:mri_Qbox] Jogador: alexjaquezjr71, Identificador #3: live:1055525408223489
+[     script:mri_Qbox] Jogador: alexjaquezjr71, Identificador #4: discord:1386087397095243856
+[     script:mri_Qbox] Jogador: alexjaquezjr71, Identificador #5: license2:1f53bbc7a86eb425980530bea759a8ff0cbdf42d
+[     script:mri_Qbox] Jogador: alexjaquezjr71, Identificador #6: ip:38.108.7.110
+[script:qbx_jewelery:] Warning: [natives] TRIGGER_CLIENT_EVENT_INTERNAL: client 1 is not the same as the target 65536. This happens when the oldId from the playerJoining event is used. Use source instead.
+[     script:it-drugs] [it-drugs] [INFO] Getting position for dealer ID	seed_dealer
+[   script:rhd_garage] [rhd_garage] [INFO] Register new cache for alexjaquezjr71
+[     script:qbx_core] [qbx_core] [INFO] alexjaquezjr71 has created a character
+[       script:cw-rep] fetching for	1
+[       script:cw-rep] result	{
+[       script:cw-rep]     "hunting": 0,
+[       script:cw-rep]     "garbage": 0,
+[       script:cw-rep]     "crafting": 0,
+[       script:cw-rep]     "cooking": 0,
+[       script:cw-rep]     "fishing": 0,
+[       script:cw-rep]     "taxi": 0,
+[       script:cw-rep]     "cityworker": 0,
+[       script:cw-rep]     "cargo": 0,
+[       script:cw-rep]     "mining": 0,
+[       script:cw-rep]     "areaexample": 0,
+[       script:cw-rep]     "hotwiring": 0,
+[       script:cw-rep]     "lockpicking": 0,
+[       script:cw-rep]     "trucker": 0,
+[       script:cw-rep]     "searching": 0,
+[       script:cw-rep]     "busdriver": 0
+[       script:cw-rep] }
+[ script:ox_inventory] [ox_inventory] [INFO] Saving 1 inventories to the database
+[ script:ox_inventory] [ox_inventory] [INFO] Saved 1/1 players (17.0818 ms)
+[   script:rhd_garage] [rhd_garage] [INFO] Remove cache from alexjaquezjr71
+[ citizen-server-impl] sync thread hitch warning: timer interval of 186 milliseconds
+[ citizen-server-impl] sync thread hitch warning: timer interval of 111 milliseconds
+[ citizen-server-impl] sync thread hitch warning: timer interval of 257 milliseconds
+[ citizen-server-impl] network thread hitch warning: timer interval of 162 milliseconds
+[ citizen-server-impl] server thread hitch warning: timer interval of 164 milliseconds
+[ citizen-server-impl] sync thread hitch warning: timer interval of 222 milliseconds
+[ citizen-server-impl] network thread hitch warning: timer interval of 275 milliseconds
+[ citizen-server-impl] server thread hitch warning: timer interval of 273 milliseconds
+[ citizen-server-impl] sync thread hitch warning: timer interval of 276 milliseconds
+[ citizen-server-impl] network thread hitch warning: timer interval of 183 milliseconds
+[ citizen-server-impl] server thread hitch warning: timer interval of 182 milliseconds
+[ citizen-server-impl] sync thread hitch warning: timer interval of 125 milliseconds
+[ citizen-server-impl] sync thread hitch warning: timer interval of 102 milliseconds
+[ citizen-server-impl] sync thread hitch warning: timer interval of 260 milliseconds
+[ citizen-server-impl] sync thread hitch warning: timer interval of 192 milliseconds
+[ citizen-server-impl] sync thread hitch warning: timer interval of 401 milliseconds
+[ citizen-server-impl] sync thread hitch warning: timer interval of 305 milliseconds
+[ citizen-server-impl] sync thread hitch warning: timer interval of 158 milliseconds
+[ citizen-server-impl] sync thread hitch warning: timer interval of 536 milliseconds
+[ citizen-server-impl] sync thread hitch warning: timer interval of 192 milliseconds
+[ citizen-server-impl] server thread hitch warning: timer interval of 196 milliseconds
+[ citizen-server-impl] sync thread hitch warning: timer interval of 139 milliseconds
+[ citizen-server-impl] server thread hitch warning: timer interval of 189 milliseconds
+[ citizen-server-impl] network thread hitch warning: timer interval of 190 milliseconds
+[ citizen-server-impl] network thread hitch warning: timer interval of 298 milliseconds
+[ citizen-server-impl] server thread hitch warning: timer interval of 328 milliseconds
+[ citizen-server-impl] server thread hitch warning: timer interval of 219 milliseconds
+[ citizen-server-impl] sync thread hitch warning: timer interval of 111 milliseconds
+[ citizen-server-impl] sync thread hitch warning: timer interval of 105 milliseconds
+[ citizen-server-impl] sync thread hitch warning: timer interval of 164 milliseconds
+[ citizen-server-impl] sync thread hitch warning: timer interval of 153 milliseconds
+[ citizen-server-impl] sync thread hitch warning: timer interval of 125 milliseconds
+[ citizen-server-impl] sync thread hitch warning: timer interval of 410 milliseconds
+[ citizen-server-impl] network thread hitch warning: timer interval of 152 milliseconds
+[ citizen-server-impl] server thread hitch warning: timer interval of 207 milliseconds
+[ citizen-server-impl] sync thread hitch warning: timer interval of 105 milliseconds
+[ citizen-server-impl] sync thread hitch warning: timer interval of 417 milliseconds
+[ citizen-server-impl] sync thread hitch warning: timer interval of 136 milliseconds
+[ citizen-server-impl] sync thread hitch warning: timer interval of 211 milliseconds
+[ citizen-server-impl] sync thread hitch warning: timer interval of 117 milliseconds
+[ citizen-server-impl] sync thread hitch warning: timer interval of 117 milliseconds
+[ citizen-server-impl] server thread hitch warning: timer interval of 159 milliseconds
+[ citizen-server-impl] sync thread hitch warning: timer interval of 159 milliseconds
+[ citizen-server-impl] sync thread hitch warning: timer interval of 154 milliseconds
+[ citizen-server-impl] sync thread hitch warning: timer interval of 642 milliseconds
+[ citizen-server-impl] network thread hitch warning: timer interval of 158 milliseconds
+[ citizen-server-impl] server thread hitch warning: timer interval of 179 milliseconds
+[ citizen-server-impl] network thread hitch warning: timer interval of 214 milliseconds
+[ citizen-server-impl] server thread hitch warning: timer interval of 210 milliseconds
+[ citizen-server-impl] network thread hitch warning: timer interval of 210 milliseconds
+[ citizen-server-impl] server thread hitch warning: timer interval of 209 milliseconds
+[ citizen-server-impl] network thread hitch warning: timer interval of 209 milliseconds
+[ citizen-server-impl] server thread hitch warning: timer interval of 209 milliseconds
+[ citizen-server-impl] network thread hitch warning: timer interval of 159 milliseconds
+[ citizen-server-impl] server thread hitch warning: timer interval of 158 milliseconds
+[ citizen-server-impl] server thread hitch warning: timer interval of 174 milliseconds
+[ citizen-server-impl] server thread hitch warning: timer interval of 346 milliseconds
+[ citizen-server-impl] network thread hitch warning: timer interval of 265 milliseconds
+[ citizen-server-impl] server thread hitch warning: timer interval of 208 milliseconds
+[ citizen-server-impl] network thread hitch warning: timer interval of 307 milliseconds
+[ citizen-server-impl] server thread hitch warning: timer interval of 238 milliseconds
+[ citizen-server-impl] network thread hitch warning: timer interval of 197 milliseconds
+[ citizen-server-impl] network thread hitch warning: timer interval of 164 milliseconds
+[ citizen-server-impl] server thread hitch warning: timer interval of 407 milliseconds
+[ citizen-server-impl] network thread hitch warning: timer interval of 420 milliseconds
+[ citizen-server-impl] server thread hitch warning: timer interval of 182 milliseconds
+[ citizen-server-impl] sync thread hitch warning: timer interval of 151 milliseconds
+[ citizen-server-impl] sync thread hitch warning: timer interval of 212 milliseconds
+[ citizen-server-impl] sync thread hitch warning: timer interval of 117 milliseconds
+[ citizen-server-impl] network thread hitch warning: timer interval of 185 milliseconds
+[ citizen-server-impl] server thread hitch warning: timer interval of 186 milliseconds
+[ citizen-server-impl] sync thread hitch warning: timer interval of 152 milliseconds
+[ citizen-server-impl] server thread hitch warning: timer interval of 288 milliseconds
+[ citizen-server-impl] network thread hitch warning: timer interval of 290 milliseconds
+[ citizen-server-impl] sync thread hitch warning: timer interval of 217 milliseconds
+[ citizen-server-impl] sync thread hitch warning: timer interval of 146 milliseconds
+[ citizen-server-impl] server thread hitch warning: timer interval of 277 milliseconds
+[ citizen-server-impl] network thread hitch warning: timer interval of 242 milliseconds
+[ citizen-server-impl] network thread hitch warning: timer interval of 356 milliseconds
+[ citizen-server-impl] server thread hitch warning: timer interval of 380 milliseconds
+[ citizen-server-impl] network thread hitch warning: timer interval of 535 milliseconds
+[ citizen-server-impl] server thread hitch warning: timer interval of 513 milliseconds
+[ citizen-server-impl] server thread hitch warning: timer interval of 227 milliseconds
+[ citizen-server-impl] network thread hitch warning: timer interval of 191 milliseconds
+[ citizen-server-impl] network thread hitch warning: timer interval of 152 milliseconds
+[ citizen-server-impl] server thread hitch warning: timer interval of 205 milliseconds
+[ citizen-server-impl] server thread hitch warning: timer interval of 186 milliseconds
+[ citizen-server-impl] server thread hitch warning: timer interval of 180 milliseconds
+[ citizen-server-impl] server thread hitch warning: timer interval of 167 milliseconds
+[ citizen-server-impl] network thread hitch warning: timer interval of 221 milliseconds
+[ citizen-server-impl] server thread hitch warning: timer interval of 254 milliseconds

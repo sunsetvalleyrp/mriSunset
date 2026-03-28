@@ -1,0 +1,54 @@
+[
+  {
+    "$schema": 1,
+    "name": "sunsetvalleygg",
+    "master": true,
+    "password_hash": "$2a$11$XlI9VRHXDY9YpzYm5lp2FeJHhCEyvXXLe5lMPBBwP9oSTOIYoh9Vi",
+    "providers": {
+      "citizenfx": {
+        "id": "sunsetvalleygg",
+        "identifier": "fivem:18633537",
+        "data": {}
+      }
+    },
+    "permissions": []
+  },
+  {
+    "$schema": 1,
+    "name": "calaabocawl",
+    "master": false,
+    "password_hash": "$2a$11$6orTmGaH/fYipRrsoNINL.Kg6nHbG7FvvW1sjz/FHnB796U0N08Gm",
+    "providers": {
+      "discord": {
+        "id": "204396248491491328",
+        "identifier": "discord:204396248491491328",
+        "data": {}
+      }
+    },
+    "permissions": [
+      "all_permissions"
+    ]
+  },
+  {
+    "$schema": 1,
+    "name": "toral",
+    "master": false,
+    "password_hash": "$2a$11$sMrdFtPP1opW3CoW/M4EQuKIEje2EYtvmPycga0x5Gmgf7b2aN3F2",
+    "password_temporary": true,
+    "providers": {
+      "citizenfx": {
+        "id": "Toral",
+        "identifier": "fivem:1042878",
+        "data": {}
+      },
+      "discord": {
+        "id": "288107675399749632",
+        "identifier": "discord:288107675399749632",
+        "data": {}
+      }
+    },
+    "permissions": [
+      "all_permissions"
+    ]
+  }
+]

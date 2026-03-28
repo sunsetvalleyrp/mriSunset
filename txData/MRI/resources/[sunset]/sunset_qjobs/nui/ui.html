@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="ui.css" />
+</head>
+<body>
+
+<div id="jobs-panel" class="hidden">
+
+    <!-- HEADER -->
+    <div id="jobs-header">
+        <div id="header-left">
+            <div id="jobs-accent-bar"></div>
+            <h1 id="jobs-title">CENTRAL DOS EMPREGOS</h1>
+        </div>
+        <button id="btn-close" title="Fechar (ESC)">✕</button>
+    </div>
+
+    <!-- ABAS: ROTAS | RANKING -->
+    <div id="main-tabs">
+        <button class="main-tab active" data-tab="rotas">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13">
+                <polyline points="9 18 15 12 9 6"/>
+            </svg>
+            ROTAS
+        </button>
+        <button class="main-tab" data-tab="ranking">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13">
+                <polyline points="18 20 18 10"/><polyline points="12 20 12 4"/><polyline points="6 20 6 14"/>
+            </svg>
+            RANKING
+        </button>
+    </div>
+
+    <!-- SUBVIEW: ROTAS -->
+    <div id="subview-rotas">
+        <p id="routes-subtitle">Selecione uma rota para iniciar seu turno</p>
+        <div id="routes-grid"></div>
+    </div>
+
+    <!-- SUBVIEW: RANKING -->
+    <div id="subview-ranking" class="hidden">
+        <div id="ranking-header">
+            <button id="btn-refresh-rank" title="Atualizar">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                    <polyline points="23 4 23 10 17 10"/>
+                    <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+                </svg>
+                ATUALIZAR
+            </button>
+        </div>
+
+        <div id="ranking-loading" class="hidden">
+            <div class="rank-spinner"></div>
+            <span>Carregando ranking...</span>
+        </div>
+
+        <div id="ranking-empty" class="hidden">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="36" height="36">
+                <circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/>
+            </svg>
+            <p>Nenhum dado ainda.<br>Complete rotas para aparecer aqui!</p>
+        </div>
+
+        <div id="ranking-table-wrap">
+            <table id="ranking-table">
+                <thead>
+                    <tr>
+                        <th class="col-pos">#</th>
+                        <th class="col-name">Jogador</th>
+                        <th class="col-xp">XP Total</th>
+                        <th class="col-sec">Rotas Concluídas</th>
+                        <th class="col-sec">Distância Percorrida</th>
+                    </tr>
+                </thead>
+                <tbody id="ranking-tbody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- VIEW: TURNO ATIVO -->
+    <div id="view-active" class="hidden">
+        <div id="active-card">
+            <div id="active-header">
+                <div id="active-dot"></div>
+                <span id="active-label">TURNO EM ANDAMENTO</span>
+            </div>
+            <div id="active-body">
+                <div id="active-info">
+                    <span id="active-job-name"></span>
+                    <span id="active-route-name"></span>
+                </div>
+                <div id="active-progress-wrap">
+                    <div id="active-progress-bar">
+                        <div id="active-progress-fill"></div>
+                    </div>
+                    <span id="active-progress-label"></span>
+                </div>
+            </div>
+            <button id="btn-finish-job" class="hidden">✔ FINALIZAR ROTA</button>
+            <button id="btn-cancel-job">ABANDONAR TURNO</button>
+        </div>
+    </div>
+
+    <div id="jobs-footer">
+        <span>Pressione <kbd>ESC</kbd> para fechar</span>
+    </div>
+
+</div>
+
+<div id="toast" class="hidden"></div>
+<script src="ui.js"></script>
+</body>
+</html>

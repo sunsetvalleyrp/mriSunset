@@ -1,0 +1,22 @@
+================================================================
+======== txAdmin v8.0.1 atop fxserver 25770 Starting - 12/03/2026 17:59:31
+================================================================
+[18:00:01][sunsetvalleygg] created admins file
+[18:02:28][sunsetvalleygg] Config changes: general.serverName
+[18:02:28][sunsetvalleygg] Changing global settings via setup stepper and started Deployer.
+[18:02:49][sunsetvalleygg] Setting recipe.
+[18:04:35][sunsetvalleygg] Running recipe.
+[18:09:11][sunsetvalleygg] Config changes: server.dataPath
+[18:09:11][sunsetvalleygg] Completed and committed server deploy.
+[19:44:47][sunsetvalleygg] logged in from 127.0.0.1 via cfxre
+[19:45:14][sunsetvalleygg] Adding user 'calaabocawl'.
+[19:49:33][sunsetvalleygg] [sunsetvalleygg] executed "mri_qadmin.setmaster 2"
+[20:45:00][sunsetvalleygg] [sunsetvalleygg] executed "mri_qadmin.setmaster license:124bfe8ae99a5b8dcf3ebf8a4e89a0bbe6811229"
+[20:45:12][sunsetvalleygg] [sunsetvalleygg] executed "qadmin.setmaster license:124bfe8ae99a5b8dcf3ebf8a4e89a0bbe6811229"
+[20:45:14][sunsetvalleygg] [sunsetvalleygg] executed "qadmin.setmaster license:124bfe8ae99a5b8dcf3ebf8a4e89a0bbe6811229"
+[20:45:23][sunsetvalleygg] [sunsetvalleygg] executed "admin.setmaster license:124bfe8ae99a5b8dcf3ebf8a4e89a0bbe6811229"
+[20:45:31][sunsetvalleygg] [sunsetvalleygg] executed "setmaster license:124bfe8ae99a5b8dcf3ebf8a4e89a0bbe6811229"
+[20:46:24][sunsetvalleygg] [sunsetvalleygg] executed "mri_qadmin.setmaster 3"
+[07:00:31][sunsetvalleygg] Editing user 'calaabocawl'.
+[07:01:52][sunsetvalleygg] Editing user 'calaabocawl'.
+[07:07:22][sunsetvalleygg] [sunsetvalleygg] executed "RESTART SERVER"

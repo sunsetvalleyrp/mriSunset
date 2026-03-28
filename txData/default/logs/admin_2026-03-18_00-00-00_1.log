@@ -1,0 +1,43 @@
+================================================================
+======== txAdmin v8.0.1 atop fxserver 25770 Starting - 17/03/2026 21:06:32
+================================================================
+================================================================
+======== Log Rotated - 17/03/2026 21:06:33                      
+================================================================
+[21:07:06][sunsetvalleygg] logged in from 127.0.0.1 via cfxre
+[00:45:06][sunsetvalleygg] Added 7d4d76fd913beb5119681b486dfae5df6fcad069 to the whitelist.
+[00:45:10][sunsetvalleygg] Removed 7d4d76fd913beb5119681b486dfae5df6fcad069 from the whitelist.
+[00:45:40][sunsetvalleygg] Adding user 'toral'.
+[00:46:21][sunsetvalleygg] Config changes: general.serverName
+[00:46:40][sunsetvalleygg] [sunsetvalleygg] executed "RESTART SERVER"
+[00:55:43][sunsetvalleygg] [sunsetvalleygg] executed "RESTART SERVER"
+[00:56:54][sunsetvalleygg] [sunsetvalleygg] executed "RESTART SERVER"
+[01:02:40][sunsetvalleygg] [sunsetvalleygg] executed "RESTART SERVER"
+[01:10:07][sunsetvalleygg] [sunsetvalleygg] executed "RESTART SERVER"
+[01:11:17][sunsetvalleygg] [sunsetvalleygg] executed "RESTART SERVER"
+[01:13:54][sunsetvalleygg] [sunsetvalleygg] executed "STOP SERVER"
+================================================================
+======== txAdmin v8.0.1 atop fxserver 25770 Starting - 18/03/2026 01:14:42
+================================================================
+[01:15:11][sunsetvalleygg] logged in from 127.0.0.1 via cfxre
+[01:42:00][sunsetvalleygg] [sunsetvalleygg] executed "RESTART SERVER"
+================================================================
+======== txAdmin v8.0.1 atop fxserver 25770 Starting - 18/03/2026 01:48:23
+================================================================
+[01:48:58][sunsetvalleygg] logged in from 127.0.0.1 via cfxre
+================================================================
+======== txAdmin v8.0.1 atop fxserver 25770 Starting - 18/03/2026 02:00:57
+================================================================
+================================================================
+======== txAdmin v8.0.1 atop fxserver 25770 Starting - 18/03/2026 02:08:45
+================================================================
+================================================================
+======== txAdmin v8.0.1 atop fxserver 25770 Starting - 18/03/2026 02:36:19
+================================================================
+[11:13:20][sunsetvalleygg] logged in from 127.0.0.1 via cfxre
+[11:13:25][sunsetvalleygg] [sunsetvalleygg] executed "RESTART SERVER"
+================================================================
+======== txAdmin v8.0.1 atop fxserver 25770 Starting - 18/03/2026 14:44:56
+================================================================
+[15:33:02][calaabocawl] Changing own password.
+[15:33:06][calaabocawl] Changing own identifiers.

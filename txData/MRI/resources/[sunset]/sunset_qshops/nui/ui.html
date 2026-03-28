@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="ui.css" />
+</head>
+<body>
+
+<!-- PAINEL PRINCIPAL -->
+<div id="shop-panel" class="hidden">
+
+    <div id="shop-header">
+        <div id="shop-title-wrap">
+            <div id="shop-accent-bar"></div>
+            <h1 id="shop-title">LOJA</h1>
+        </div>
+        <button id="btn-close" title="Fechar (ESC)">✕</button>
+    </div>
+
+    <div id="shop-toolbar">
+        <div id="filter-tabs">
+            <button class="filter-btn active" data-category="todos">TODOS</button>
+        </div>
+        <div id="search-wrap">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <input id="search-input" type="text" placeholder="Pesquisar..." autocomplete="off" />
+        </div>
+    </div>
+
+    <div id="shop-grid-wrap">
+        <div id="shop-grid"></div>
+        <div id="shop-empty" class="hidden">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/>
+            </svg>
+            <p>Nenhum item encontrado.</p>
+        </div>
+    </div>
+
+    <div id="shop-footer">
+        <span>Pressione <kbd>ESC</kbd> para fechar</span>
+    </div>
+
+</div><!-- /#shop-panel -->
+
+<!-- MODAL DE QUANTIDADE -->
+<div id="qty-backdrop" class="hidden"></div>
+<div id="qty-modal" class="hidden">
+    <p id="qty-label">Comprando <strong id="qty-item-name"></strong></p>
+    <p id="qty-unit-price"></p>
+
+    <div id="qty-controls">
+        <button id="qty-dec" class="qty-btn">−</button>
+        <span id="qty-value">1</span>
+        <button id="qty-inc" class="qty-btn">+</button>
+    </div>
+
+    <div id="qty-total-wrap">
+        <span>Total</span>
+        <span id="qty-total-price"></span>
+    </div>
+
+    <div id="qty-actions">
+        <button id="qty-cancel">CANCELAR</button>
+        <button id="qty-confirm">CONFIRMAR</button>
+    </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast" class="hidden"></div>
+
+<script src="ui.js"></script>
+</body>
+</html>

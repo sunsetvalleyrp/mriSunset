@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>GarageX Tuning</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:      #07090e;
+  --panel:   #0c1018;
+  --card:    #101520;
+  --card2:   #141c27;
+  --accent:  #f97316;
+  --glow:    rgba(249,115,22,0.4);
+  --green:   #4ade80;
+  --blue:    #38bdf8;
+  --purple:  #a78bfa;
+  --red:     #f87171;
+  --text:    #e2e8f0;
+  --muted:   #64748b;
+  --border:  rgba(249,115,22,0.2);
+  --border2: rgba(255,255,255,0.06);
+  --s1: #4ade80;
+  --s2: #38bdf8;
+  --s3: #a78bfa;
+  --s4: #f97316;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family:'Rajdhani',sans-serif;
+  background:transparent;
+  width:100vw; height:100vh;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden;
+}
+#app {
+  width:960px; height:620px;
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:6px;
+  display:none; flex-direction:column;
+  position:relative; overflow:hidden;
+  box-shadow:0 0 80px rgba(0,0,0,0.9), 0 0 140px rgba(249,115,22,0.06);
+  transition:opacity 0.2s, transform 0.2s;
+}
+#app::after {
+  content:''; position:absolute; inset:0; pointer-events:none; z-index:200;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.02) 2px,rgba(0,0,0,0.02) 4px);
+}
+.c { position:absolute; width:20px; height:20px; border-color:var(--accent); border-style:solid; z-index:201; }
+.c.tl{top:0;left:0;border-width:2px 0 0 2px}
+.c.tr{top:0;right:0;border-width:2px 2px 0 0}
+.c.bl{bottom:0;left:0;border-width:0 0 2px 2px}
+.c.br{bottom:0;right:0;border-width:0 2px 2px 0}
+.hdr {
+  height:44px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 20px;
+  border-bottom:1px solid var(--border);
+  background:linear-gradient(90deg,rgba(249,115,22,0.06),transparent);
+  z-index:10;
+}
+.logo { font-family:'Orbitron',monospace; font-size:17px; font-weight:900; color:var(--accent); letter-spacing:4px; text-shadow:0 0 20px var(--glow); }
+.logo em { color:var(--text); opacity:0.35; font-style:normal; }
+.badge { background:rgba(249,115,22,0.1); border:1px solid var(--border); border-radius:3px; padding:2px 10px; font-size:12px; font-weight:700; color:var(--accent); letter-spacing:2px; margin-left:12px; }
+.hdr-right { display:flex; align-items:center; gap:10px; }
+.bal-box { display:flex; align-items:center; gap:8px; background:var(--panel); border:1px solid var(--border2); border-radius:3px; padding:5px 14px; }
+.bal-lbl { font-size:11px; color:var(--muted); letter-spacing:1px; }
+.bal-val { font-family:'Orbitron',monospace; font-size:12px; color:var(--green); font-weight:700; }
+.veh-box { display:flex; align-items:center; gap:6px; background:var(--panel); border:1px solid var(--border2); border-radius:3px; padding:5px 12px; }
+.veh-name { font-family:'Orbitron',monospace; font-size:12px; color:var(--text); font-weight:700; }
+.veh-plate { font-size:17px; color:var(--muted); letter-spacing:2px; margin-left:4px; }
+.btn-close { width:32px; height:32px; border-radius:3px; background:rgba(248,113,113,0.08); border:1px solid rgba(248,113,113,0.3); color:var(--red); font-size:12px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.15s; }
+.btn-close:hover { background:rgba(248,113,113,0.22); }
+.body { display:flex; flex:1; min-height:0; }
+.left-panel { width:210px; flex-shrink:0; background:var(--panel); border-right:1px solid var(--border); display:flex; flex-direction:column; }
+.p-hdr { padding:10px 14px; border-bottom:1px solid var(--border2); font-family:'Orbitron',monospace; font-size:12px; letter-spacing:2px; color:var(--muted); display:flex; align-items:center; gap:7px; flex-shrink:0; }
+.p-hdr::before { content:''; width:3px; height:12px; background:var(--accent); border-radius:1px; }
+.inst-list { flex:1; overflow-y:auto; overflow-x:hidden; padding:8px; display:flex; flex-direction:column; gap:5px; }
+.inst-list::-webkit-scrollbar { width:3px; }
+.inst-list::-webkit-scrollbar-thumb { background:var(--border); border-radius:2px; }
+.inst-row { background:var(--card); border:1px solid var(--border2); border-radius:5px; padding:6px 8px; display:flex; align-items:center; gap:6px; transition:border-color 0.15s; min-width:0; overflow:hidden; }
+.inst-row.empty { border-style:dashed; border-color:rgba(249,115,22,0.15); opacity:0.5; }
+.inst-row.filled { border-color:rgba(249,115,22,0.35); }
+.inst-row.filled:hover { border-color:var(--red); }
+.inst-row.pre-installed { border-color:rgba(74,222,128,0.35); }
+.inst-row.pre-installed:hover { border-color:var(--red); }
+.inst-icon { font-size:14px; flex-shrink:0; width:16px; text-align:center; }
+.inst-info { flex:1; min-width:0; overflow:hidden; }
+.inst-cat  { font-size:10px; color:var(--muted); letter-spacing:1px; text-transform:uppercase; }
+.inst-name { font-size:12px; font-weight:700; color:var(--text); margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.inst-price { font-size:10px; font-family:'Orbitron',monospace; margin-top:1px; }
+.inst-stage { font-family:'Orbitron',monospace; font-size:10px; font-weight:900; padding:2px 4px; border-radius:2px; flex-shrink:0; }
+.btn-remove { width:22px; height:22px; min-width:22px; border-radius:2px; background:rgba(248,113,113,0.08); border:1px solid rgba(248,113,113,0.2); color:var(--red); font-size:11px; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:all 0.15s; pointer-events:all; }
+.btn-remove:hover { background:rgba(248,113,113,0.28); border-color:rgba(248,113,113,0.6); }
+.left-footer { padding:10px 14px; border-top:1px solid var(--border2); display:flex; flex-direction:column; gap:8px; flex-shrink:0; }
+.cost-row { display:flex; align-items:center; justify-content:space-between; }
+.cost-lbl { font-size:11px; color:var(--muted); letter-spacing:1px; }
+.cost-val { font-family:'Orbitron',monospace; font-size:15px; font-weight:900; color:var(--accent); text-shadow:0 0 12px var(--glow); }
+.btn-install { width:100%; padding:9px; border:none; border-radius:4px; background:linear-gradient(135deg,var(--accent),#c2410c); color:#fff; font-family:'Orbitron',monospace; font-size:12px; font-weight:700; letter-spacing:2px; cursor:pointer; transition:all 0.2s; box-shadow:0 0 18px rgba(249,115,22,0.3); text-transform:uppercase; }
+.btn-install:hover { box-shadow:0 0 28px rgba(249,115,22,0.55); transform:translateY(-1px); }
+.btn-install:disabled { opacity:0.35; cursor:not-allowed; transform:none; box-shadow:none; }
+.car-panel { flex:1; display:flex; flex-direction:column; min-width:0; position:relative; }
+.car-area { flex:1; position:relative; overflow:hidden; min-height:0; display:flex; align-items:center; justify-content:center; }
+.car-area::before { content:''; position:absolute; inset:0; background: linear-gradient(rgba(249,115,22,0.022) 1px,transparent 1px), linear-gradient(90deg,rgba(249,115,22,0.022) 1px,transparent 1px); background-size:38px 38px; }
+.car-glow { position:absolute; bottom:14px; left:50%; transform:translateX(-50%); width:320px; height:28px; background:radial-gradient(ellipse,rgba(249,115,22,0.22),transparent 70%); filter:blur(10px); border-radius:50%; pointer-events:none; z-index:1; }
+.car-wrap { position:relative; z-index:2; width:280px; height:500px; flex-shrink:0; }
+.car-wrap > img.car-bg { width:100%; height:100%; object-fit:contain; display:block; filter:brightness(0.92); }
+.slot { position:absolute; z-index:5; display:flex; flex-direction:column; align-items:center; gap:3px; cursor:pointer; }
+.slot-box { width:72px; height:72px; border:2px dashed rgba(249,115,22,0.38); border-radius:6px; background:rgba(7,9,14,0.55); backdrop-filter:blur(4px); display:flex; flex-direction:column; align-items:center; justify-content:center; transition:all 0.18s; position:relative; overflow:hidden; }
+.slot-box::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(249,115,22,0.05),transparent); opacity:0; transition:opacity 0.18s; }
+@keyframes pulse { 0%,100%{border-color:rgba(249,115,22,0.22);}50%{border-color:rgba(249,115,22,0.7);} }
+.slot-box.idle              { animation:pulse 2.4s ease-in-out infinite; }
+.slot-box.filled            { border-style:solid; border-color:rgba(249,115,22,0.6); background:rgba(249,115,22,0.06); animation:none; }
+.slot-box.filled:hover      { border-color:rgba(248,113,113,0.7); background:rgba(248,113,113,0.06); }
+.slot-box.pre-installed     { border-style:solid; border-color:rgba(74,222,128,0.5); background:rgba(74,222,128,0.05); animation:none; }
+.slot-box.pre-installed:hover { border-color:rgba(248,113,113,0.7); background:rgba(248,113,113,0.06); }
+.slot-box.over              { border-style:solid; border-color:var(--accent); background:rgba(249,115,22,0.14); box-shadow:0 0 20px var(--glow); transform:scale(1.07); animation:none; }
+.slot-box.over::before      { opacity:1; }
+.slot-ico  { font-size:17px; opacity:0.32; }
+.slot-txt  { font-size:11px; color:var(--muted); letter-spacing:0.5px; text-transform:uppercase; }
+.slot-lbl  { font-size:17px; font-weight:700; color:rgba(255,255,255,0.45); letter-spacing:1.2px; text-transform:uppercase; text-align:center; white-space:nowrap; text-shadow:0 1px 4px rgba(0,0,0,0.9); }
+.slot-img  { width:42px; height:42px; object-fit:contain; }
+.slot-name { font-size:11px; font-weight:700; text-align:center; line-height:1.1; max-width:68px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.slot-badge { position:absolute; bottom:3px; right:3px; font-family:'Orbitron',monospace; font-size:11px; font-weight:900; padding:1px 4px; border-radius:2px; }
+.stat-row { padding:6px 14px; border-top:1px solid var(--border2); display:flex; gap:14px; flex-shrink:0; background:rgba(0,0,0,0.3); }
+.stat-item { display:flex; flex-direction:column; gap:2px; }
+.stat-lbl  { font-size:11px; color:var(--muted); letter-spacing:1.5px; text-transform:uppercase; }
+.stat-bar-bg { width:62px; height:3px; background:rgba(255,255,255,0.05); border-radius:2px; overflow:hidden; }
+.stat-bar-fg { height:100%; border-radius:2px; transition:width 0.5s; }
+.stat-num  { font-family:'Orbitron',monospace; font-size:17px; color:var(--text); font-weight:700; }
+.right-panel { width:220px; flex-shrink:0; background:var(--panel); border-left:1px solid var(--border); display:flex; flex-direction:column; overflow:hidden; }
+.cat-tabs { display:flex; flex-wrap:wrap; border-bottom:1px solid var(--border2); flex-shrink:0; }
+.cat-tab { flex:1; min-width:33%; padding:6px 2px; font-size:17px; text-align:center; cursor:pointer; color:var(--muted); border-bottom:2px solid transparent; transition:all 0.15s; }
+.cat-tab:hover  { color:var(--text); }
+.cat-tab.active { color:var(--accent); border-bottom-color:var(--accent); }
+.items-grid { flex:1; overflow-y:auto; padding:8px; display:grid; grid-template-columns:repeat(2,1fr); gap:6px; align-content:start; }
+.items-grid::-webkit-scrollbar { width:3px; }
+.items-grid::-webkit-scrollbar-thumb { background:var(--border); border-radius:2px; }
+.item-card { background:var(--card); border:1px solid var(--border2); border-radius:5px; padding:6px; cursor:grab; user-select:none; position:relative; display:flex; flex-direction:column; align-items:center; gap:3px; transition:all 0.15s; }
+.item-card:hover { border-color:var(--accent); background:var(--card2); transform:translateY(-1px); box-shadow:0 4px 12px rgba(249,115,22,0.12); }
+.item-card.dragging { opacity:0.3; cursor:grabbing; }
+.item-card.installed { opacity:0.28; pointer-events:none; }
+.item-ico  { width:42px; height:42px; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.03); border-radius:3px; }
+.item-ico img { width:100%; height:100%; object-fit:contain; }
+.item-name { font-size:17px; font-weight:700; color:var(--text); text-align:center; line-height:1.2; }
+.item-stg  { font-family:'Orbitron',monospace; font-size:12px; font-weight:700; padding:1px 5px; border-radius:2px; letter-spacing:1px; }
+.s1 { background:rgba(74,222,128,0.14); color:var(--s1); border:1px solid rgba(74,222,128,0.3); }
+.s2 { background:rgba(56,189,248,0.14); color:var(--s2); border:1px solid rgba(56,189,248,0.3); }
+.s3 { background:rgba(167,139,250,0.14); color:var(--s3); border:1px solid rgba(167,139,250,0.3); }
+.s4 { background:rgba(249,115,22,0.14);  color:var(--s4); border:1px solid rgba(249,115,22,0.3);  }
+.item-price { font-size:11px; color:var(--muted); font-family:'Orbitron',monospace; }
+.item-check { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.48); border-radius:5px; font-size:17px; }
+#ghost { position:fixed; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); background:var(--card2); border:1.5px solid var(--accent); border-radius:6px; padding:7px; display:none; flex-direction:column; align-items:center; gap:3px; box-shadow:0 8px 28px rgba(249,115,22,0.45); }
+#ghost img  { width:38px; height:38px; object-fit:contain; }
+#ghost span { font-size:17px; color:var(--text); font-weight:700; }
+#toast { position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(14px); background:var(--card2); border:1px solid var(--border); border-radius:4px; padding:8px 18px; font-size:17px; font-weight:600; opacity:0; transition:all 0.28s; z-index:10000; white-space:nowrap; pointer-events:none; }
+#toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+#toast.ok   { border-color:var(--green); color:var(--green); }
+#toast.err  { border-color:var(--red);   color:var(--red);   }
+#toast.info { border-color:var(--blue);  color:var(--blue);  }
+</style>
+</head>
+<body>
+
+<div id="app">
+  <div class="c tl"></div><div class="c tr"></div>
+  <div class="c bl"></div><div class="c br"></div>
+
+  <div class="hdr">
+    <div style="display:flex;align-items:center;">
+      <div class="logo">wTuning<em>/</em>1.0</div>
+      <div class="badge">Tuning Shop WScript</div>
+    </div>
+    <div class="hdr-right">
+      <div class="veh-box">
+        <span class="veh-name" id="veh-name">—</span>
+        <span class="veh-plate" id="veh-plate">——</span>
+      </div>
+      <div class="bal-box">
+        <span class="bal-lbl">🏦</span>
+        <span class="bal-val" id="bal-bank">R$0</span>
+        <span class="bal-lbl" style="margin-left:8px">💵</span>
+        <span class="bal-val" id="bal-cash" style="color:#38bdf8">R$0</span>
+      </div>
+      <div class="btn-close" onclick="closeUI()">✕</div>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <div class="left-panel">
+      <div class="p-hdr">Inventário</div>
+      <div class="cat-tabs" id="cat-tabs"></div>
+      <div class="items-grid" id="items-grid"></div>
+    </div>
+
+    <div class="car-panel">
+      <div class="car-area" id="car-area">
+        <div class="car-glow"></div>
+        <div class="car-wrap" id="car-wrap">
+
+          <img class="car-bg" src="car_top.png" alt="car" onerror="this.style.visibility='hidden'">
+
+          <div class="slot" id="slot-motor" style="left:calc(49.9% - 36px); top:calc(25.3% - 36px)">
+            <div class="slot-box idle" data-slot="motor"><span class="slot-ico">🔧</span><span class="slot-txt">Motor</span></div>
+            <span class="slot-lbl">MOTOR</span>
+          </div>
+          <div class="slot" id="slot-suspension" style="left:calc(22% - 36px); top:calc(39.4% - 36px)">
+            <div class="slot-box idle" data-slot="suspension"><span class="slot-ico">🔩</span><span class="slot-txt">Susp.</span></div>
+            <span class="slot-lbl">SUSPENSÃO</span>
+          </div>
+          <div class="slot" id="slot-freios" style="left:calc(72.7% - 36px); top:calc(39.4% - 36px)">
+            <div class="slot-box idle" data-slot="freios"><span class="slot-ico">🛑</span><span class="slot-txt">Freios</span></div>
+            <span class="slot-lbl">FREIOS</span>
+          </div>
+          <div class="slot" id="slot-transmissao" style="left:calc(18% - 36px); top:calc(64.9% - 36px)">
+            <div class="slot-box idle" data-slot="transmissao"><span class="slot-ico">⚙️</span><span class="slot-txt">Trans.</span></div>
+            <span class="slot-lbl">TRANSMISSÃO</span>
+          </div>
+          <div class="slot" id="slot-turbo" style="left:calc(71.2% - 36px); top:calc(64.9% - 36px)">
+            <div class="slot-box idle" data-slot="turbo"><span class="slot-ico">💨</span><span class="slot-txt">Turbo</span></div>
+            <span class="slot-lbl">TURBO</span>
+          </div>
+          <div class="slot" id="slot-armadura" style="left:calc(46% - 36px); top:calc(79.0% - 36px)">
+            <div class="slot-box idle" data-slot="armadura"><span class="slot-ico">🛡️</span><span class="slot-txt">Blind.</span></div>
+            <span class="slot-lbl">BLINDAGEM</span>
+          </div>
+
+        </div>
+      </div>
+      <div class="stat-row" id="stat-row"></div>
+    </div>
+
+    <div class="right-panel">
+      <div class="p-hdr">Peças Instaladas</div>
+      <div class="inst-list" id="inst-list"></div>
+      <div class="left-footer">
+        <div class="cost-row">
+          <span class="cost-lbl">CUSTO TOTAL</span>
+          <span class="cost-val" id="cost">R$0</span>
+        </div>
+        <button class="btn-install" id="btn-install" disabled onclick="applyTuning()">
+          INSTALAR TUNING
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="ghost"><img id="ghost-img" src="" alt=""><span id="ghost-name"></span></div>
+<div id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════
+const CATS = [
+  {id:'suspension',  name:'Suspensão',    icon:'🔩'},
+  {id:'motor',       name:'Motor',        icon:'🔧'},
+  {id:'freios',      name:'Freios',       icon:'🛑'},
+  {id:'transmissao', name:'Transmissão',  icon:'⚙️'},
+  {id:'armadura',    name:'Blindagem',    icon:'🛡️'},
+  {id:'turbo',       name:'Turbo',        icon:'💨'},
+];
+
+const ITEMS = {
+  motor:[
+    {id:'motor_s1',name:'Motor S1',stage:1,price:5000,  modIndex:11,modValue:0,  desc:'Carburador ajustado',   color:'#4ade80'},
+    {id:'motor_s2',name:'Motor S2',stage:2,price:12000, modIndex:11,modValue:1,  desc:'Kit injeção melhorado', color:'#38bdf8'},
+    {id:'motor_s3',name:'Motor S3',stage:3,price:25000, modIndex:11,modValue:2,  desc:'Cabeçote high perf.',   color:'#a78bfa'},
+    {id:'motor_s4',name:'Motor S4',stage:4,price:300000,modIndex:11,modValue:3,  desc:'Motor race completo',   color:'#f97316'},
+  ],
+  turbo:[
+    {id:'turbo_s1',name:'Turbo S1',stage:1,price:8000,  modIndex:18,modValue:true,isToggle:true,desc:'Turbo básico',    color:'#4ade80'},
+    {id:'turbo_s2',name:'Turbo S2',stage:2,price:18000, modIndex:18,modValue:true,isToggle:true,desc:'Alto fluxo',      color:'#38bdf8'},
+    {id:'turbo_s3',name:'Turbo S3',stage:3,price:35000, modIndex:18,modValue:true,isToggle:true,desc:'Alta pressão',    color:'#a78bfa'},
+    {id:'turbo_s4',name:'Turbo S4',stage:4,price:120000,modIndex:18,modValue:true,isToggle:true,desc:'Twin-turbo race', color:'#f97316'},
+  ],
+  suspension:[
+    {id:'susp_s1',name:'Susp. S1',stage:1,price:3000, modIndex:15,modValue:0,desc:'Molas esportivas',   color:'#4ade80'},
+    {id:'susp_s2',name:'Susp. S2',stage:2,price:7000, modIndex:15,modValue:1,desc:'Kit ajustável',      color:'#38bdf8'},
+    {id:'susp_s3',name:'Susp. S3',stage:3,price:15000,modIndex:15,modValue:2,desc:'Amortecedor perf.',  color:'#a78bfa'},
+    {id:'susp_s4',name:'Susp. S4',stage:4,price:60000,modIndex:15,modValue:4,desc:'Setup competição',   color:'#f97316'},
+  ],
+  freios:[
+    {id:'freio_s1',name:'Freio S1',stage:1,price:4000, modIndex:12,modValue:0,desc:'Pastilhas esp.',    color:'#4ade80'},
+    {id:'freio_s2',name:'Freio S2',stage:2,price:9000, modIndex:12,modValue:1,desc:'Discos ventilados', color:'#38bdf8'},
+    {id:'freio_s3',name:'Freio S3',stage:3,price:20000,modIndex:12,modValue:2,desc:'Sistema sport',     color:'#a78bfa'},
+    {id:'freio_s4',name:'Freio S4',stage:4,price:80000,modIndex:12,modValue:3,desc:'Competição máx.',   color:'#f97316'},
+  ],
+  armadura:[
+    {id:'arm_s1',name:'Blind. S1',stage:1,price:10000, modIndex:16,modValue:0,desc:'Proteção básica',   color:'#4ade80'},
+    {id:'arm_s2',name:'Blind. S2',stage:2,price:22000, modIndex:16,modValue:1,desc:'Reforço chassi',    color:'#38bdf8'},
+    {id:'arm_s3',name:'Blind. S3',stage:3,price:45000, modIndex:16,modValue:2,desc:'Balística básica',  color:'#a78bfa'},
+    {id:'arm_s4',name:'Blind. S4',stage:4,price:150000,modIndex:16,modValue:4,desc:'Militarizada total',color:'#f97316'},
+  ],
+  transmissao:[
+    {id:'trans_s1',name:'Trans. S1',stage:1,price:5500,  modIndex:13,modValue:0,desc:'Câmbio esportivo', color:'#4ade80'},
+    {id:'trans_s2',name:'Trans. S2',stage:2,price:13000, modIndex:13,modValue:1,desc:'Caixa melhorada',  color:'#38bdf8'},
+    {id:'trans_s3',name:'Trans. S3',stage:3,price:27000, modIndex:13,modValue:2,desc:'Alta performance', color:'#a78bfa'},
+    {id:'trans_s4',name:'Trans. S4',stage:4,price:110000,modIndex:13,modValue:3,desc:'Câmbio race',      color:'#f97316'},
+  ],
+};
+
+const ICON = (cat,stage) => `items/${{
+  motor:'motor',turbo:'turbo',suspension:'susp',
+  freios:'freio',armadura:'arm',transmissao:'trans'
+}[cat]}_s${stage}.png`;
+
+const STATS = [
+  {id:'motor',      lbl:'POTÊNCIA', color:'#f97316', base:20},
+  {id:'turbo',      lbl:'BOOST',    color:'#38bdf8', base:0 },
+  {id:'suspension', lbl:'HANDLING', color:'#a78bfa', base:25},
+  {id:'freios',     lbl:'FREIOS',   color:'#4ade80', base:30},
+  {id:'armadura',   lbl:'ARMADURA', color:'#fb923c', base:15},
+  {id:'transmissao',lbl:'VELOC.',   color:'#fbbf24', base:20},
+];
+
+// ═══════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════
+const S = {
+  cat: 'motor',
+  slots:        Object.fromEntries(CATS.map(c=>[c.id, null])),
+  // true  = item já estava instalado no carro ao abrir a UI
+  // false = item foi arrastado nessa sessão (novo)
+  preInstalled: Object.fromEntries(CATS.map(c=>[c.id, false])),
+  balance: 0,
+  cash: 0,
+  vehName: '—',
+  vehPlate: '——',
+};
+let drag = null;
+
+// ═══════════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════════
+function R() {
+  rCatTabs(); rItems(); rSlots(); rInstalled(); rStats(); rCost();
+  document.getElementById('bal-bank').textContent = 'R$'+S.balance.toLocaleString('pt-BR');
+  document.getElementById('bal-cash').textContent  = 'R$'+S.cash.toLocaleString('pt-BR');
+  document.getElementById('veh-name').textContent  = S.vehName;
+  document.getElementById('veh-plate').textContent = S.vehPlate;
+}
+
+function rCatTabs() {
+  document.getElementById('cat-tabs').innerHTML = CATS.map(c=>`
+    <div class="cat-tab ${c.id===S.cat?'active':''}" onclick="setCat('${c.id}')" title="${c.name}">${c.icon}</div>
+  `).join('');
+}
+
+function rItems() {
+  const list = ITEMS[S.cat]||[];
+  document.getElementById('items-grid').innerHTML = list.map(item=>{
+    const inst = S.slots[S.cat]?.id === item.id;
+    return `<div class="item-card ${inst?'installed':''}" id="ic-${item.id}"
+         data-item-id="${item.id}"
+         data-item-cat="${S.cat}"
+         onpointerdown="if(!this.classList.contains('installed'))startDrag(event,this)"
+         title="${item.desc} — R$${item.price.toLocaleString('pt-BR')}">
+      <div class="item-ico"><img src="${ICON(S.cat,item.stage)}" onerror="this.style.display='none'"></div>
+      <span class="item-name">${item.name}</span>
+      <span class="item-stg s${item.stage}">S${item.stage}</span>
+      <span class="item-price">R$${(item.price/1000).toFixed(0)}K</span>
+      ${inst?'<div class="item-check">✓</div>':''}
+    </div>`;
+  }).join('');
+}
+
+function rSlots() {
+  CATS.forEach(cat=>{
+    const item  = S.slots[cat.id];
+    const isPre = S.preInstalled[cat.id];
+    const box   = document.querySelector(`[data-slot="${cat.id}"]`);
+    if (!box) return;
+    if (item) {
+      const col = item.color||'#f97316';
+      // Verde = pré-instalado | Laranja = novo nessa sessão
+      // Ambos mostram hover vermelho pois ambos podem ser removidos
+      box.className = isPre ? 'slot-box pre-installed' : 'slot-box filled';
+      box.innerHTML = `
+        <img class="slot-img" src="${ICON(cat.id,item.stage)}" onerror="this.style.display='none'">
+        <span class="slot-name" style="color:${col}">${item.name}</span>
+        <span class="slot-badge" style="background:${col}22;color:${col};border:1px solid ${col}55">S${item.stage}</span>`;
+      box.title   = item.name+' — clique para remover';
+      // Ambos os casos usam removeSlot — a função trata a diferença internamente
+      box.onclick = ()=>removeSlot(cat.id);
+    } else {
+      box.className = 'slot-box idle';
+      box.innerHTML = `<span class="slot-ico">${cat.icon}</span><span class="slot-txt">${cat.name}</span>`;
+      box.title   = '';
+      box.onclick = null;
+    }
+  });
+}
+
+function rInstalled() {
+  const el = document.getElementById('inst-list');
+  el.innerHTML = CATS.map(cat=>{
+    const item  = S.slots[cat.id];
+    const isPre = S.preInstalled[cat.id];
+    if (item) {
+      const col = item.color||'#f97316';
+      return `<div class="inst-row ${isPre?'pre-installed':'filled'}">
+        <span class="inst-icon">${cat.icon}</span>
+        <div class="inst-info">
+          <div class="inst-cat">${cat.name}</div>
+          <div class="inst-name">${item.name}</div>
+          <div class="inst-price" style="color:${isPre?'var(--green)':col}">
+            ${isPre ? 'Já instalado' : 'R$'+item.price.toLocaleString('pt-BR')}
+          </div>
+        </div>
+        <span class="inst-stage s${item.stage}" style="background:${col}22;color:${col};border:1px solid ${col}44">S${item.stage}</span>
+        <div class="btn-remove" onpointerdown="event.stopPropagation()" onclick="removeSlot('${cat.id}')" title="Remover e devolver ao inventário">✕</div>
+      </div>`;
+    } else {
+      return `<div class="inst-row empty">
+        <span class="inst-icon" style="opacity:0.4">${cat.icon}</span>
+        <div class="inst-info">
+          <div class="inst-cat">${cat.name}</div>
+          <div class="inst-name" style="color:var(--muted);font-size:12px">vazio</div>
+        </div>
+      </div>`;
+    }
+  }).join('');
+}
+
+function rStats() {
+  document.getElementById('stat-row').innerHTML = STATS.map(s=>{
+    const pct = Math.min(s.base+(S.slots[s.id]?.stage||0)*18,100);
+    return `<div class="stat-item">
+      <div class="stat-lbl">${s.lbl}</div>
+      <div class="stat-bar-bg"><div class="stat-bar-fg" style="width:${pct}%;background:${s.color};box-shadow:0 0 5px ${s.color}66"></div></div>
+      <div class="stat-num">${pct}%</div>
+    </div>`;
+  }).join('');
+}
+
+function rCost() {
+  // Só soma custo dos itens NOVOS (não pré-instalados)
+  const total = Object.entries(S.slots).reduce((a,[slotId,v])=>{
+    if (!v || S.preInstalled[slotId]) return a;
+    return a + v.price;
+  }, 0);
+  document.getElementById('cost').textContent = 'R$'+total.toLocaleString('pt-BR');
+  // Botão ativo se tiver pelo menos 1 item novo para instalar
+  const hasNew = Object.entries(S.slots).some(([slotId,v])=>v && !S.preInstalled[slotId]);
+  document.getElementById('btn-install').disabled = !hasNew;
+}
+
+// ═══════════════════════════════════════════
+// INTERACTIONS
+// ═══════════════════════════════════════════
+function setCat(id) { S.cat=id; rCatTabs(); rItems(); }
+
+function removeSlot(slotId) {
+  const item  = S.slots[slotId];
+  const isPre = S.preInstalled[slotId];
+  if (!item) return;
+
+  S.slots[slotId]        = null;
+  S.preInstalled[slotId] = false;
+
+  if (isPre) {
+    // Pré-instalado: avisa o servidor para remover o mod físico do carro
+    // e devolver o item ao inventário
+    post('returnItem', { itemId: item.id, slotId, removeFromVehicle: true });
+  } else {
+    // Novo (ainda não instalado no carro): só devolve ao inventário
+    post('returnItem', { itemId: item.id, slotId, removeFromVehicle: false });
+  }
+
+  rSlots(); rItems(); rInstalled(); rStats(); rCost();
+  toast('Peça removida — devolvida ao inventário', 'info');
+}
+
+// ── Pointer drag ────────────────────────────────────
+function startDrag(e, el) {
+  if (e.button!==0) return;
+  const itemId = el.dataset.itemId;
+  const cat    = el.dataset.itemCat;
+  const item   = (ITEMS[cat]||[]).find(i=>i.id===itemId);
+  if (!item) return;
+  e.preventDefault();
+  const g = document.getElementById('ghost');
+  document.getElementById('ghost-img').src          = ICON(cat, item.stage);
+  document.getElementById('ghost-name').textContent = item.name;
+  g.style.display = 'flex';
+  g.style.left    = e.clientX+'px';
+  g.style.top     = (e.clientY-30)+'px';
+  document.getElementById('ic-'+itemId)?.classList.add('dragging');
+  document.querySelectorAll('[data-slot]').forEach(s=>{
+    if (s.dataset.slot === cat) {
+      s.style.borderColor = 'rgba(249,115,22,0.9)';
+      s.style.boxShadow   = '0 0 18px rgba(249,115,22,0.35)';
+    }
+  });
+  drag = { item, cat };
+}
+
+document.addEventListener('pointermove',e=>{
+  if (!drag) return;
+  const g=document.getElementById('ghost');
+  g.style.left=e.clientX+'px'; g.style.top=(e.clientY-30)+'px';
+  document.querySelectorAll('[data-slot]').forEach(s=>{
+    const r=s.getBoundingClientRect();
+    const over=e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top&&e.clientY<=r.bottom;
+    s.classList.toggle('over', over && s.dataset.slot===drag.cat);
+  });
+});
+
+document.addEventListener('pointerup',e=>{
+  if (!drag) return;
+  let dropped=null;
+  document.querySelectorAll('[data-slot]').forEach(s=>{
+    const r=s.getBoundingClientRect();
+    if(e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top&&e.clientY<=r.bottom) dropped=s.dataset.slot;
+    s.classList.remove('over');
+    s.style.borderColor=''; s.style.boxShadow='';
+  });
+  document.getElementById('ghost').style.display='none';
+  document.querySelectorAll('.item-card').forEach(c=>c.classList.remove('dragging'));
+  const {item,cat}=drag; drag=null;
+  if (!dropped) return;
+  if (dropped!==cat){toast('Peça incompatível com este slot!','err');return;}
+
+  // Se o slot já tem algo (novo ou pré-instalado), remove primeiro
+  if (S.slots[dropped]) {
+    const old   = S.slots[dropped];
+    const wasPre = S.preInstalled[dropped];
+    post('returnItem',{ itemId: old.id, slotId: dropped, removeFromVehicle: wasPre });
+  }
+
+  S.slots[dropped]        = item;
+  S.preInstalled[dropped] = false; // recém arrastado = novo
+  rSlots(); rItems(); rInstalled(); rStats(); rCost();
+  toast(item.name+' colocado no slot!','ok');
+});
+
+// ═══════════════════════════════════════════
+// APPLY / CLOSE
+// ═══════════════════════════════════════════
+function applyTuning() {
+  // Envia SOMENTE os itens novos desta sessão
+  const items = Object.entries(S.slots)
+    .filter(([slotId, v]) => v && !S.preInstalled[slotId])
+    .map(([slotId, item]) => ({slotId, ...item}));
+
+  if (!items.length) return;
+
+  const total = items.reduce((a,i)=>a+i.price,0);
+  if (total>(S.balance+S.cash)){
+    toast(`Saldo insuficiente! Necessário R$${total.toLocaleString('pt-BR')} | Banco: R$${S.balance.toLocaleString('pt-BR')} | Dinheiro: R$${S.cash.toLocaleString('pt-BR')}`,'err');
+    return;
+  }
+
+  post('applyTuning',{items});
+
+  // Promove os novos para pré-instalados — evita reenvio duplo
+  items.forEach(i=>{ S.preInstalled[i.slotId] = true; });
+
+  const btn=document.getElementById('btn-install');
+  btn.textContent='✓ INSTALADO';
+  btn.style.background='linear-gradient(135deg,#4ade80,#16a34a)';
+  setTimeout(()=>{
+    btn.textContent='INSTALAR TUNING';
+    btn.style.background='';
+    rCost();
+  },2500);
+  toast('Tuning instalado! R$'+total.toLocaleString('pt-BR'),'ok');
+}
+
+function closeUI() {
+  document.getElementById('app').style.display='none';
+  window._nuiClosed=true;
+  post('closeUI',{});
+}
+
+// ═══════════════════════════════════════════
+// UTILS
+// ═══════════════════════════════════════════
+function post(cb, data) {
+  const res = typeof GetParentResourceName==='function' ? GetParentResourceName() : 'garagex_tuning';
+  fetch('https://'+res+'/'+cb,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}).catch(()=>{});
+}
+
+function toast(msg,type='info') {
+  const el=document.getElementById('toast');
+  el.textContent=msg; el.className='toast show '+type;
+  clearTimeout(el._t); el._t=setTimeout(()=>el.classList.remove('show'),3000);
+}
+
+// ═══════════════════════════════════════════
+// NUI MESSAGES
+// ═══════════════════════════════════════════
+window.addEventListener('message',e=>{
+  const d=e.data; if(!d?.action) return;
+  switch(d.action){
+    case 'openUI':
+      CATS.forEach(c=>{
+        S.slots[c.id]        = null;
+        S.preInstalled[c.id] = false;
+      });
+      S.balance  = d.balance||0;
+      S.cash     = d.cash||0;
+      S.vehName  = d.vehicleName||'Veículo';
+      S.vehPlate = d.vehiclePlate||'——';
+      if(d.currentTuning){
+        Object.entries(d.currentTuning).forEach(([slot,itemId])=>{
+          const item=(ITEMS[slot]||[]).find(i=>i.id===itemId);
+          if(item){
+            S.slots[slot]        = item;
+            S.preInstalled[slot] = true; // já estava no carro
+          }
+        });
+      }
+      window._nuiClosed=false;
+      document.getElementById('app').style.display='flex';
+      R();
+      break;
+    case 'updateBalance':
+      S.balance = d.balance||0;
+      S.cash    = d.cash||0;
+      document.getElementById('bal-bank').textContent='R$'+S.balance.toLocaleString('pt-BR');
+      document.getElementById('bal-cash').textContent='R$'+S.cash.toLocaleString('pt-BR');
+      break;
+    case 'forceClose':
+      document.getElementById('app').style.display='none';
+      break;
+  }
+});
+
+// ═══════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════
+document.getElementById('app').style.display='none';
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeUI(); });
+</script>
+</body>
+</html>
