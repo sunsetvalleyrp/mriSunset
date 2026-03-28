@@ -99,6 +99,57 @@ lib.addCommand('removepermission', {
     RemovePermission(player.PlayerData.source, permission)
 end)
 
+lib.addCommand('dima', {
+    help = 'Adiciona diamantes a todos os personagens de um UserId: /dima <UserId> <Quantidade>',
+    params = {
+        { name = 'UserId', type = 'number', help = 'UserId na tabela users' },
+        { name = 'Quantidade', type = 'number', help = 'Quantidade a somar' },
+    },
+    restricted = 'group.admin',
+}, function(source, args)
+    if not IsOptin(source) then Notify(source, locale('error.not_optin'), 'error') return end
+
+    local UserId = math.floor(args.UserId)
+    local Quantidade = math.floor(args.Quantidade)
+
+    if UserId < 1 then
+        Notify(source, 'UserId inválido.', 'error')
+        return
+    end
+
+    if Quantidade == 0 then
+        Notify(source, 'A quantidade não pode ser 0.', 'error')
+        return
+    end
+
+    local Affected = MySQL.update.await(
+        'UPDATE players SET diamonds = COALESCE(diamonds, 0) + ? WHERE userId = ?',
+        { Quantidade, UserId }
+    )
+
+    if not Affected or Affected < 1 then
+        Notify(source, ('Nenhum personagem com UserId %s.'):format(UserId), 'error')
+        return
+    end
+
+    for PlayerSource, QbxPlayer in pairs(GetQBPlayers()) do
+        if QbxPlayer.PlayerData.userId == UserId then
+            local Row = MySQL.single.await('SELECT diamonds FROM players WHERE citizenid = ? LIMIT 1', {
+                QbxPlayer.PlayerData.citizenid,
+            })
+            if Row and Row.diamonds ~= nil then
+                SetPlayerData(PlayerSource, 'diamonds', tonumber(Row.diamonds) or 0)
+            end
+        end
+    end
+
+    Notify(
+        source,
+        ('+%s diamantes para UserId %s (%s personagem(ns)).'):format(Quantidade, UserId, Affected),
+        'success'
+    )
+end)
+
 lib.addCommand('openserver', {
     help = locale('command.openserver.help'),
     restricted = 'group.admin'
