@@ -23,7 +23,12 @@
         "already_in_queue": "You are already in queue.",
         "no_subqueue": "You were not let in any sub-queue.",
         "character_delete_failed": "Character deletion failed. Please try again.",
-        "not_optin": "You are not opted in for admin duty. (/optin to toggle)"
+        "not_optin": "You are not opted in for admin duty. (/optin to toggle)",
+        "char_slot_occupied": "This character slot is already in use.",
+        "char_invalid_slot": "Invalid character slot.",
+        "char_no_slot_no_diamonds": "All slots are full and you do not have enough diamonds across your characters.",
+        "char_not_enough_diamonds": "Not enough diamonds. You need %s total across your characters; you have %s.",
+        "char_create_failed": "Could not create the character. Please try again."
     },
     "success": {
         "server_opened": "The server has been opened",
@@ -64,7 +69,13 @@
         "birth_date": "Birth Date",
         "select_gender": "Select your gender...",
         "confirm_delete": "Are you sure you wish to delete this character?",
-        "in_queue": "🐌 You are %s/%s in queue. (%s) %s"
+        "in_queue": "🐌 You are %s/%s in queue. (%s) %s",
+        "char_create_confirm_header": "New character",
+        "char_create_confirm_body": "Create a new character in this slot?",
+        "char_create_paid_header": "Extra character",
+        "char_create_paid_body": "This slot costs %s diamonds (total across your characters: %s). Only the 1st character is free; 2nd, 3rd and extra slots use this price. Confirming will deduct from your characters. Continue?",
+        "multichar_extra_character": "Extra character (%s diamonds)",
+        "multichar_extra_character_desc": "Total diamonds across characters: %s"
     },
     "command": {
         "tp": {

@@ -97,6 +97,12 @@ return {
         },
 
         defaultNumberOfCharacters = 3, -- Define maximum amount of default characters (maximum 3 characters defined by default)
+
+        --- Quantos slots iniciais são 100% gratuitos (1 = só o 1.º personagem; 2º e 3º usam diamantes até o limite).
+        freeCharacterSlots = 1,
+
+        --- Diamantes cobrados ao criar no 2.º slot em diante (até o limite) ou personagem extra além do limite.
+        extraCharacterDiamondCost = 10000,
     },
 
     -- this configuration is for core events only. putting other webhooks here will have no effect

@@ -128,9 +128,11 @@ local function fetchAllPlayerEntities(license2, license)
     ---@type PlayerEntity[]
     local chars = {}
     ---@type PlayerEntityDatabase[]
-    local result = MySQL.query.await('SELECT citizenid, charinfo, money, job, gang, position, metadata, UNIX_TIMESTAMP(last_logged_out) AS lastLoggedOutUnix FROM players WHERE license = ? OR license = ? ORDER BY cid', {license, license2})
+    local result = MySQL.query.await('SELECT userId, citizenid, charinfo, money, job, gang, position, metadata, COALESCE(diamonds, 0) AS diamonds, UNIX_TIMESTAMP(last_logged_out) AS lastLoggedOutUnix FROM players WHERE license = ? OR license = ? ORDER BY cid', {license, license2})
     for i = 1, #result do
         chars[i] = result[i]
+        chars[i].userId = result[i].userId
+        chars[i].diamonds = tonumber(result[i].diamonds) or 0
         chars[i].charinfo = json.decode(result[i].charinfo)
         chars[i].money = json.decode(result[i].money)
         chars[i].job = result[i].job and json.decode(result[i].job)
@@ -147,7 +149,7 @@ end
 ---@return PlayerEntity?
 local function fetchPlayerEntity(citizenId)
     ---@type PlayerEntityDatabase
-    local player = MySQL.single.await('SELECT userId, citizenid, license, name, charinfo, money, job, gang, position, metadata, UNIX_TIMESTAMP(last_logged_out) AS lastLoggedOutUnix FROM players WHERE citizenid = ?', { citizenId })
+    local player = MySQL.single.await('SELECT userId, citizenid, license, name, charinfo, money, job, gang, position, metadata, COALESCE(diamonds, 0) AS diamonds, UNIX_TIMESTAMP(last_logged_out) AS lastLoggedOutUnix FROM players WHERE citizenid = ?', { citizenId })
     local charinfo = player and json.decode(player.charinfo)
     return player and {
         userId = player.userId,
@@ -161,6 +163,7 @@ local function fetchPlayerEntity(citizenId)
         gang = player.gang and json.decode(player.gang),
         position = convertPosition(player.position),
         metadata = json.decode(player.metadata),
+        diamonds = tonumber(player.diamonds) or 0,
         lastLoggedOut = player.lastLoggedOutUnix
     } or nil
 end

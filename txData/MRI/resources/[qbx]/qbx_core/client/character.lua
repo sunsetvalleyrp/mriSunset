@@ -359,6 +359,31 @@ end
 ---@param cid integer
 ---@return boolean
 local function createCharacter(cid)
+    local gate = lib.callback.await('qbx_core:server:gateCreateCharacter', false, cid)
+    if not gate or not gate.allow then
+        Notify(gate and gate.reason or locale('error.char_create_failed'), 'error', 8000)
+        return false
+    end
+
+    local header, content
+    if gate.dialogType == 'paid' then
+        header = locale('info.char_create_paid_header')
+        content = locale('info.char_create_paid_body', lib.math.groupdigits(gate.cost), lib.math.groupdigits(gate.totalDiamonds))
+    else
+        header = locale('info.char_create_confirm_header')
+        content = locale('info.char_create_confirm_body')
+    end
+
+    local confirm = lib.alertDialog({
+        header = header,
+        content = content,
+        centered = true,
+        cancel = true,
+    })
+    if confirm ~= 'confirm' then
+        return false
+    end
+
     previewPed()
 
     :: noMatch ::
@@ -384,6 +409,11 @@ local function createCharacter(cid)
         birthdate = dialog[5],
         cid = cid
     })
+
+    if not newData then
+        Notify(locale('error.char_create_failed'), 'error', 8000)
+        return false
+    end
 
     if GetResourceState('qbx_spawn') == 'missing' then
         spawnDefault()
@@ -452,7 +482,8 @@ local function chooseCharacter()
                 ['Nível de emprego'] = type(character.job.grade) ~= "table" and character.job.grade or character.job.grade.name,
                 ['Gangue'] = character.gang.label,
                 ['Patente'] = character.gang.grade.name,
-                ['Telefone'] = character.charinfo.phone
+                ['Telefone'] = character.charinfo.phone,
+                ['Diamantes'] = lib.math.groupdigits(character.diamonds or 0),
             } or nil,
             icon = character and 'user' or 'plus',
             iconAnimation = config.characters.iconAnimation,
@@ -524,6 +555,25 @@ local function chooseCharacter()
                     } or nil
                 }
             })
+        end
+    end
+
+    if #characters >= amount then
+        local extra = lib.callback.await('qbx_core:server:getExtraCharacterOffer', false)
+        if extra and extra.show and extra.canPay then
+            options[#options + 1] = {
+                title = locale('info.multichar_extra_character', lib.math.groupdigits(extra.cost)),
+                description = locale('info.multichar_extra_character_desc', lib.math.groupdigits(extra.totalDiamonds)),
+                icon = 'gem',
+                iconAnimation = config.characters.iconAnimation,
+                onSelect = function()
+                    local success = createCharacter(amount + 1)
+                    if success then return end
+
+                    previewPed(firstCharacterCitizenId)
+                    lib.showContext('qbx_core_multichar_characters')
+                end,
+            }
         end
     end
 

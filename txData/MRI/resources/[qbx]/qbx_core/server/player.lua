@@ -591,6 +591,8 @@ function CheckPlayerData(source, playerData)
         playerData.money[moneytype] = playerData.money[moneytype] or startamount
     end
 
+    playerData.diamonds = tonumber(playerData.diamonds) or 0
+
     -- Charinfo
     playerData.charinfo = playerData.charinfo or {}
     playerData.charinfo.firstname = playerData.charinfo.firstname or 'Firstname'

@@ -21,7 +21,12 @@
         "connecting_error": "Ocorreu um erro ao conectar-se ao servidor. (Verifique o console do seu servidor)",
         "no_match_character_registration": "Somente letras são permitidas, espaços extras no final não são permitidos e as palavras devem começar com letra maiúscula nos campos de entrada. No entanto, você pode adicionar palavras com espaços entre elas.",
         "already_in_queue": "Você já está na fila.",
-        "no_subqueue": "Você não foi colocado em nenhuma subfila."
+        "no_subqueue": "Você não foi colocado em nenhuma subfila.",
+        "char_slot_occupied": "Este slot de personagem já está em uso.",
+        "char_invalid_slot": "Slot de personagem inválido.",
+        "char_no_slot_no_diamonds": "Todos os slots estão cheios e você não tem diamantes suficientes na conta.",
+        "char_not_enough_diamonds": "Diamantes insuficientes. São necessários %s na soma dos personagens; você tem %s.",
+        "char_create_failed": "Não foi possível criar o personagem. Tente novamente."
     },
     "success": {
         "server_opened": "O servidor foi aberto",
@@ -61,7 +66,13 @@
         "birth_date": "Data de Nascimento",
         "select_gender": "Selecionar gênero",
         "confirm_delete": "Tem certeza de que deseja excluir este personagem?",
-        "in_queue": "🐌 Você está %s/%s na fila. (%s) %s"
+        "in_queue": "🐌 Você está %s/%s na fila. (%s) %s",
+        "char_create_confirm_header": "Novo personagem",
+        "char_create_confirm_body": "Deseja criar um novo personagem neste slot?",
+        "char_create_paid_header": "Personagem extra",
+        "char_create_paid_body": "Este slot custa %s diamantes (soma na conta entre os seus personagens: %s). Só o 1.º personagem é gratuito; 2.º, 3.º e extras usam este valor. Ao confirmar, o desconto será aplicado. Continuar?",
+        "multichar_extra_character": "Novo personagem extra (%s diamantes)",
+        "multichar_extra_character_desc": "Diamantes somados na conta: %s"
     },
     "command": {
         "tp": {

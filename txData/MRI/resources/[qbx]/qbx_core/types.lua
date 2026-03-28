@@ -136,6 +136,7 @@
 ---@field position vector4
 ---@field metadata PlayerMetadata
 ---@field cid integer
+---@field diamonds? number
 ---@field lastLoggedOut integer
 ---@field items table deprecated
 
